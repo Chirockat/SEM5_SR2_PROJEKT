@@ -27,7 +27,6 @@ def analyze_ast_density(filename):
     try:
         raw_metrics = raw.analyze(code)
         # Używamy SLOC (Source Lines of Code) lub LLOC.
-        # Tu lepiej SLOC, bo chcemy wiedzieć ile fizycznie miejsca zajmuje kod.
         lines_count = raw_metrics.lloc
     except:
         lines_count = len(code.splitlines())
