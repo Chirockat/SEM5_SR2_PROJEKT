@@ -3,7 +3,6 @@ from pyit2fls import T1TSK, T1FS, tri_mf, trapezoid_mf, gaussian_mf, IT2FS, TSK,
 import matplotlib.pyplot as plt
 
 
-# --- 1. DEFINICJA UNIWERSÓW ---
 
 
 density_universe = np.linspace(0, 40, 2000)
@@ -176,8 +175,7 @@ print(f"{'BAD CODE':<15} | {case_bad['density']:<5} | {case_bad['complexity']:<5
 
 print("-" * 50)
 
-# --- 6. WYKRES POWIERZCHNI STEROWANIA (3D) ---
-# Pokaże nam, jak zmienia się ocena w zależności od obu parametrów
+# ---  WYKRES POWIERZCHNI STEROWANIA (3D) ---
 
 fig = plt.figure(figsize=(10, 7))
 ax = fig.add_subplot(111, projection='3d')
