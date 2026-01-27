@@ -20,6 +20,15 @@ Dokumentacja techniczna projektu wykorzystującego logikę rozmytą typu 2 do au
 
 ## 1. Wstęp i Cel Projektu
 
+Aplikacja dotyczy Systemu Rozmytego który zajmuje się oceną czytelności i złożoności logicznej kodu. Została stworzona na potrzeby zaliczenia przedmiotu Systemy Rozmyte na III Roku Informatyki na Uniwersytecie Rzeszowskim, 2026.
+
+Wraz z coraz bardziej rozpowszechnionym rozwojem oprogramowania i mnogością jego implementacji rośnie znaczenie możliwości oceny kodu. Coraz częściej używa się też narzędzi LLM do jego tworzenia, które, o ile tworzyć działający poprawnie kod potrafią, to niekoniecznie wiedzą jak on wygląda dla użytkownika z punktu widzenia czytelności.
+
+Skupiliśmy się na języku Python ze względu na jego popularność i ze względu na fakt że jest to język wykorzystywany przez nas do nauki Systemów Rozmytych. 
+
+Pomysł na projekt powstał z następującej refleksji -  Jest wiele bibliotek do oceny kodu: **Pylint, Mypy, Bandit;** ale bardziej skupiają się one na zgodności ze standardami kodu, jego stabilności lub bezpieczeństwie.
+Z kolei okazało się że ciężko znaleźć coś co opisywało by bardziej subiektywną kategorię - czytelność kodu. A okazuje się że, po pierwsze, dobrze pasuje ona na natury Systemów Rozmytych, które to są - jak sama nazwa mówi - rozmyte, nieostre; A po drugie, pełni ważną rolę dla nas osobiście jako studentów uczących się programować.
+
 ## 2. Metryki Wejściowe
 
 System podejmuje decyzje na podstawie dwóch kluczowych wskaźników wyekstrahowanych z kodu:
