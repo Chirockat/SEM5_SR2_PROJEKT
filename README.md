@@ -34,7 +34,22 @@ Z kolei okazało się że ciężko znaleźć coś co opisywało by bardziej subi
 System podejmuje decyzje na podstawie dwóch kluczowych wskaźników wyekstrahowanych z kodu:
 
 ### 2.1. Złożoność Cyklomatyczna (Cyclomatic Complexity - CC)
+
+Złożoność Cyklomatyczna jest liczona dzięki bibliotece radon.compelxity i wbudowanej w niej funkcji `cc_visit`. Polega na zliczeniu wszystkich 
+niezależnych ścieżek które są w kodzie  tj. różnych instrukcji takich jak `if`, `for`, `while`, `except`, `and`, `or` itp.
+dla każdej funkcji mierzy w ten sposób jej złożoność a później wyciąga średnią dla całego pliku.
+Im wyższa jest złożoność cyklomatyczna tym trudniejszy jest kod w zrozumieniu i ciężej jest go testować.
+
+
 ### 2.2. Gęstość Węzłów AST (AST Node Density)
+
+Dzięki tej metryce jesteśmy w stanie sprawdzić jak dużo operacji w jednej lini jest wykonywanych.  
+Metryka stosuje wzór:
+$$AST Density = Liczba Węzłów AST / Logiczne Linie Kodu$$
+
+*Liczba Węzłów AST* - Liczymy wszystko co trzeba przetworzyć / wykonać tj. `zmienne`,`stałe`,`wywołania funkcji`, `definicje argumentów`, `operatory logiczne`.
+*Logiczne Linie Kodu* - Jest to liczba lini kodu który się wykonał, ignorowane są komentarze, puste linie i docstringi.
+
 ## 3. Projekt Systemu Rozmytego (Fuzzy Logic Design)
 
 System oparty jest na **Interval Type-2 Fuzzy Logic System (IT2FLS)** w modelu **Takagi-Sugeno-Kang (TSK)**. Wybór tego rozwiązania podyktowany był koniecznością modelowania niepewności, która jest nierozerwalnie związana z subiektywną oceną jakości kodu.
