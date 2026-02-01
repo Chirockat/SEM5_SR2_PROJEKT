@@ -35,6 +35,57 @@ System podejmuje decyzje na podstawie dwóch kluczowych wskaźników wyekstrahow
 
 ### 2.1. Złożoność Cyklomatyczna (Cyclomatic Complexity - CC)
 ### 2.2. Gęstość Węzłów AST (AST Node Density)
+
+Zmienna wejściowa **AST Density** opisuje, jak bardzo „zagęszczony” jest kod źródłowy pod względem swojej struktury składniowej.
+W praktyce oznacza to, ile elementów drzewa składniowego abstrakcyjnego (Abstract Syntax Tree, AST) przypada średnio na jedną linię kodu. 
+Metryka ta została wprowadzona jako próba ilościowego ujęcia czytelności kodu oraz stopnia jego złożoności strukturalnej.
+
+Drzewo AST stanowi wewnętrzną reprezentację programu, w której każda instrukcja, wyrażenie lub blok kodu odpowiada osobnemu węzłowi. 
+Im więcej takich węzłów przypada na jedną linię, tym kod jest bardziej zbity i potencjalnie trudniejszy do analizy. 
+Wartość AST Density obliczana jest jako stosunek liczby węzłów AST do liczby linii kodu.
+
+W kontekście implementacyjnym metryka AST Density przyjmuje jako wejście kod źródłowy w postaci tekstowej, 
+natomiast jako wynik zwraca pojedynczą wartość liczbową określającą średnią liczbę węzłów AST przypadających na jedną linię kodu.
+
+#### Przykład obliczeń
+Jeżeli analizowany fragment kodu składa się z 15 linii i podczas parsowania wygenerowanych zostaje 120 węzłów AST, to wartość gęstości AST wynosi:
+
+AST Density = 120 / 15 = 8.0
+
+Oznacza to, że każda linia kodu zawiera średnio osiem elementów strukturalnych drzewa składniowego.
+
+#### Zakres uniwersum
+Zakres wartości dla zmiennej AST Density został ustalony na przedział **0–40 węzłów AST na linię kodu**. 
+Dolna granica odpowiada bardzo prostym lub trywialnym fragmentom kodu, natomiast górna granica została przyjęta jako świadome ograniczenie projektowe,
+pozwalające objąć również skrajnie zagęszczone fragmenty kodu.
+
+Zakres ten jest wystarczająco szeroki, aby uwzględnić nietypowe przypadki (np. bardzo krótkie, lecz silnie zagnieżdżone funkcje), 
+a jednocześnie umożliwia stabilne zdefiniowanie zbiorów lingwistycznych oraz funkcji przynależności w systemie rozmytym.
+
+#### Zakres optymalny
+Zakres wartości uznawany za optymalny dla zmiennej **AST Density** został przyjęty na podstawie analizy przykładowych plików testowych wykonanej przy użyciu skryptu `ast_test.py`. 
+Na przykład dla pliku `knapsack_basic.py`, który stanowił wariant najbardziej zrównoważony pod względem czytelności i struktury, uzyskano wartość AST Density równą **7.61**. 
+
+Dla porównania, kod bardziej zbity (`knapsack_modern.py`) osiągnął wartość **13.89**, natomiast kod rozwlekły i mniej uporządkowany (`knapsack_messy.py`) wartość **6.03**. 
+Na tej podstawie przyjęto, że najbardziej czytelny kod znajduje się w przedziale **7–8 węzłów AST na linię kodu**. 
+Zakres 7–8 stanowi rdzeń zbioru `Optimal`, czyli obszar, w którym system z największą pewnością uznaje gęstość AST za optymalną; poza tym zakresem przynależność maleje w sposób ciągły. 
+(Fragment pliku app_prototype.py poniżej w którym zastosowaliśmy ten rdzeń)
+
+```python
+d_optimal = IT2FS(density_universe,
+                  trapezoid_mf, [3, 6, 10, 14, 1.0],   # UMF
+                  trapezoid_mf, [5, 7, 8, 11, 1.0])    # LMF 
+```
+
+#### Skala pomiarowa
+AST Density jest zmienną ilościową mierzoną w **skali ilorazowej**, ponieważ posiada naturalne zero, a relacje między wartościami mają sens interpretacyjny 
+(np. kod o gęstości 16 jest strukturalnie dwukrotnie bardziej zagęszczony niż kod o gęstości 8).
+
+#### Implementacja i testy
+Metryka AST Density została zaprojektowana częściowo przy wsparciu modeli językowych LLM. 
+Jej sposób obliczania oraz przykładowe wyniki działania można prześledzić w pliku `ast_test.py`,
+gdzie zaprezentowano wartości tej metryki dla różnych fragmentów kodu źródłowego.
+
 ## 3. Projekt Systemu Rozmytego (Fuzzy Logic Design)
 
 System oparty jest na **Interval Type-2 Fuzzy Logic System (IT2FLS)** w modelu **Takagi-Sugeno-Kang (TSK)**. Wybór tego rozwiązania podyktowany był koniecznością modelowania niepewności, która jest nierozerwalnie związana z subiektywną oceną jakości kodu.
