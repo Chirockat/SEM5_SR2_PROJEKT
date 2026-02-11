@@ -70,12 +70,7 @@ Istnieje też 0 które wskazuje że np. sprawdzamy obszar w którym nie deklaruj
 
 ### 2.2. Gęstość Węzłów AST (AST Node Density)
 
-Dzięki tej metryce jesteśmy w stanie sprawdzić jak dużo operacji w jednej lini jest wykonywanych.  
-Metryka stosuje wzór:
-$$AST Density = Liczba Węzłów AST / Logiczne Linie Kodu$$
 
-*Liczba Węzłów AST* - Liczymy wszystko co trzeba przetworzyć / wykonać tj. `zmienne`,`stałe`,`wywołania funkcji`, `definicje argumentów`, `operatory logiczne`.
-*Logiczne Linie Kodu* - Jest to liczba lini kodu który się wykonał, ignorowane są komentarze, puste linie i docstringi.
 Zmienna wejściowa **AST Density** opisuje, jak bardzo „zagęszczony” jest kod źródłowy pod względem swojej struktury składniowej.
 W praktyce oznacza to, ile elementów drzewa składniowego abstrakcyjnego (Abstract Syntax Tree, AST) przypada średnio na jedną linię kodu. 
 Metryka ta została wprowadzona jako próba ilościowego ujęcia czytelności kodu oraz stopnia jego złożoności strukturalnej.
@@ -86,6 +81,14 @@ Wartość AST Density obliczana jest jako stosunek liczby węzłów AST do liczb
 
 W kontekście implementacyjnym metryka AST Density przyjmuje jako wejście kod źródłowy w postaci tekstowej, 
 natomiast jako wynik zwraca pojedynczą wartość liczbową określającą średnią liczbę węzłów AST przypadających na jedną linię kodu.
+
+Metryka stosuje wzór:
+$$AST Density = Liczba Węzłów AST / Logiczne Linie Kodu$$
+
+*Liczba Węzłów AST* - Liczymy wszystko co trzeba przetworzyć / wykonać tj. `zmienne`,`stałe`,`wywołania funkcji`, `definicje argumentów`, `operatory logiczne`.
+
+*Logiczne Linie Kodu* - Jest to liczba lini kodu który się wykonał, ignorowane są komentarze, puste linie i docstringi.
+
 
 #### Przykład obliczeń
 Jeżeli analizowany fragment kodu składa się z 15 linii i podczas parsowania wygenerowanych zostaje 120 węzłów AST, to wartość gęstości AST wynosi:
