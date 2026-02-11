@@ -1,5 +1,5 @@
 import numpy as np
-from pyit2fls import T1TSK, T1FS, tri_mf, trapezoid_mf, gaussian_mf, IT2FS, TSK, einstein_sum_s_norm, product_t_norm, IT2FS_plot
+from pyit2fls import IT2TSK,  trapezoid_mf,  IT2FS,  einstein_sum_s_norm, product_t_norm
 import matplotlib.pyplot as plt
 
 
@@ -48,36 +48,9 @@ c_medium.plot()
 c_high.plot()
 
 
-
-def low_density_low_complexity(inputs):
-    return 70 + 3 * inputs['density'] - 2 * inputs['complexity']
-
-def optimal_density_low_complexity(inputs):
-    return 100 - 2 * inputs['complexity']
-
-def high_density_low_complexity(inputs):
-    return 95 - 2 * inputs['density'] - 2 * inputs['complexity']
-
-def low_density_medium_complexity(inputs):
-    return 60 + 2 * inputs['density'] - 3 * inputs['complexity']
-
-def optimal_density_medium_complexity(inputs):
-    return 85 - 3 * inputs['complexity']
-
-def high_density_medium_complexity(inputs):
-    return 90 - 2.5 * inputs['density'] - 3 * inputs['complexity']
-
-def low_density_high_complexity(inputs):
-    return 45 + 1 * inputs['density'] - 1 * inputs['complexity']
-
-def optimal_density_high_complexity(inputs):
-    return 50 - 1 * inputs['complexity']
-
-def high_density_high_complexity(inputs):
-    return 60 - 1.5 * inputs['density'] - 1.5 * inputs['complexity']
 # --- 4. STEROWNIK I REGUŁY ---
 
-controller = TSK(t_norm=product_t_norm, s_norm=einstein_sum_s_norm)
+controller = IT2TSK(t_norm=product_t_norm, s_norm=einstein_sum_s_norm)
 
 controller.add_input_variable('density')
 controller.add_input_variable('complexity')
@@ -88,57 +61,49 @@ controller.add_output_variable('quality')
 
 controller.add_rule(
     [('density', d_low), ('complexity', c_low)],
-    [('quality', {'const': 70, 'density': 3, 'complexity': -2})]
+    [('quality', {'const': 78, 'density': 0.0, 'complexity': -2.0}, {'const': 88, 'density': 0.0, 'complexity': -2.0})]
 )
-
 
 controller.add_rule(
     [('density', d_optimal), ('complexity', c_low)],
-    [('quality', {'const': 100, 'density': 0, 'complexity': -2})]
+    [('quality', {'const': 100, 'density': 0.0, 'complexity': -4.7}, {'const': 100, 'density': 0.0, 'complexity': -4.7})]
 )
-
 
 controller.add_rule(
     [('density', d_high), ('complexity', c_low)],
-    [('quality', {'const': 95, 'density': -2, 'complexity': -2})]
+    [('quality', {'const': 107, 'density': -1.5, 'complexity': -2.0}, {'const': 117, 'density': -1.5, 'complexity': -2.0})]
 )
 
-
-# --- GRUPA 2: ŚREDNIA ZŁOŻONOŚĆ (Kod przeciętny logicznie) ---
-
+# --- GRUPA 2: ŚREDNIA ZŁOŻONOŚĆ  ---
 controller.add_rule(
     [('density', d_low), ('complexity', c_medium)],
-    [('quality', {'const': 60, 'density': 2, 'complexity': -3})]
+    [('quality', {'const': 74, 'density': 0.0, 'complexity': -2.0}, {'const': 84, 'density': 0.0, 'complexity': -2.0})]
 )
 
 controller.add_rule(
     [('density', d_optimal), ('complexity', c_medium)],
-    [('quality', {'const': 85, 'density': 0, 'complexity': -3})]
+    [('quality', {'const': 84, 'density': 0.0, 'complexity': -2.0}, {'const': 94, 'density': 0.0, 'complexity': -2.0})]
 )
 
 controller.add_rule(
     [('density', d_high), ('complexity', c_medium)],
-    [('quality', {'const': 90, 'density': -2.5, 'complexity': -3})]
+    [('quality', {'const': 42.5, 'density': -0.5, 'complexity': -1.0}, {'const': 52.5, 'density': -0.5, 'complexity': -1.0})]
 )
 
-
 # --- GRUPA 3: WYSOKA ZŁOŻONOŚĆ (Zły kod logicznie) ---
-
-
 controller.add_rule(
     [('density', d_low), ('complexity', c_high)],
-    [('quality', {'const': 45, 'density': 1, 'complexity': -1})]
+    [('quality', {'const': 50, 'density': 0.0, 'complexity': -1.0}, {'const': 60, 'density': 0.0, 'complexity': -1.0})]
 )
 
 controller.add_rule(
     [('density', d_optimal), ('complexity', c_high)],
-    [('quality', {'const': 50, 'density': 0, 'complexity': -1})]
+    [('quality', {'const': 50, 'density': 0.0, 'complexity': -1.0}, {'const': 60, 'density': 0.0, 'complexity': -1.0})]
 )
-
 
 controller.add_rule(
     [('density', d_high), ('complexity', c_high)],
-    [('quality', {'const': 60, 'density': -1.5, 'complexity': -1.5})]
+    [('quality', {'const': 45, 'density': -0.5, 'complexity': -0.5}, {'const': 45, 'density': -0.5, 'complexity': -0.5})]
 )
 
 # --- 5. SYMULACJA NA PRZYKŁADACH ---
@@ -147,31 +112,38 @@ print("-" * 50)
 print(f"{'TYP KODU':<15} | {'Dens.':<5} | {'CC':<5} | {'OCENA (0-100)':<15}")
 print("-" * 50)
 
+# Scenariusz 1: "Optimal"
+case_optimal = {'density': 7, 'complexity': 0}
+res_optimal = controller.evaluate(case_optimal )
+print(f"{'OPTIMAL':<15} | {case_optimal['density']:<5} | {case_optimal['complexity']:<5} | {res_optimal['quality']:.2f}")
 
 
-# Scenariusz 1: "Knapsack Basic" (Ten zrównoważony)
-# Density ok. 5-6, CC małe (np. 3)
-case_basic = {'density': 6, 'complexity': 6}
+# Scenariusz 2: "Knapsack Basic" (Ten zrównoważony)
+case_basic = {'density': 8, 'complexity': 6}
 res_basic = controller.evaluate(case_basic)
-print(f"{'BASIC (Ideal)':<15} | {case_basic['density']:<5} | {case_basic['complexity']:<5} | {res_basic['quality']:.2f}")
+print(f"{'BASIC (Good)':<15} | {case_basic['density']:<5} | {case_basic['complexity']:<5} | {res_basic['quality']:.2f}")
 
-# Scenariusz 2: "Knapsack Modern" (Zbyt gęsty)
-# Density bardzo duże (np. 14), CC bardzo małe (np. 2)
+# Scenariusz 3: "Knapsack Modern" (Zbyt gęsty)
 case_modern = {'density': 14.0, 'complexity': 7}
 res_modern = controller.evaluate(case_modern)
 print(f"{'MODERN (Dense)':<15} | {case_modern['density']:<5} | {case_modern['complexity']:<5} | {res_modern['quality']:.2f}")
 
-# Scenariusz 3: "Knapsack Messy" (Rozwlekły + Ifologia)
+# Scenariusz 4: "Knapsack Messy" (Rozwlekły)
 
 case_messy = {'density': 6, 'complexity': 12}
 res_messy = controller.evaluate(case_messy)
 print(f"{'MESSY (Spag.)':<15} | {case_messy['density']:<5} | {case_messy['complexity']:<5} | {res_messy['quality']:.2f}")
 
-# Scenariusz 4: "God Class" (Najgorszy przypadek)
-# Wszystko źle
-case_bad = {'density': 30, 'complexity': 30}
+# Scenariusz 5: "Kiepski kod" (obydwa wysokie)
+case_bad = {'density': 15.0, 'complexity': 15}
 res_bad = controller.evaluate(case_bad)
 print(f"{'BAD CODE':<15} | {case_bad['density']:<5} | {case_bad['complexity']:<5} | {res_bad['quality']:.2f}")
+
+# Scenariusz 6: "Najgorszy" (obydwa z pogranicza)
+case_worst = {'density': 40, 'complexity': 50}
+res_worst = controller.evaluate(case_worst)
+print(f"{'WORST CODE':<15} | {case_worst['density']:<5} | {case_worst['complexity']:<5} | {res_worst['quality']:.2f}")
+
 
 print("-" * 50)
 
