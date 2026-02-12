@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinterdnd2 import DND_FILES, TkinterDnD
 import os
-from logic_engine import evaluate_code, quality_system
+from app_logic import evaluate_code, quality_system
 
 
 class CodeQualityApp:
