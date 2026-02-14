@@ -98,7 +98,7 @@ AST Density = 120 / 15 = 8.0
 Oznacza to, że każda linia kodu zawiera średnio osiem elementów strukturalnych drzewa składniowego.
 
 #### Zakres uniwersum
-Zakres wartości dla zmiennej AST Density został ustalony na przedział **0–40 węzłów AST na linię kodu**. 
+Zakres wartości dla zmiennej **AST Density** został ustalony na przedział **0–40 węzłów AST na linię kodu**. 
 Dolna granica odpowiada bardzo prostym lub trywialnym fragmentom kodu, natomiast górna granica została przyjęta jako świadome ograniczenie projektowe,
 pozwalające objąć również skrajnie zagęszczone fragmenty kodu.
 
@@ -106,7 +106,7 @@ Zakres ten jest wystarczająco szeroki, aby uwzględnić nietypowe przypadki (np
 a jednocześnie umożliwia stabilne zdefiniowanie zbiorów lingwistycznych oraz funkcji przynależności w systemie rozmytym.
 
 #### Zakres optymalny
-Zakres wartości uznawany za optymalny dla zmiennej **AST Density** został przyjęty na podstawie analizy przykładowych plików testowych wykonanej przy użyciu skryptu `ast_test.py`. 
+Zakres wartości uznawany za optymalny dla zmiennej **AST Density** został przyjęty na podstawie analizy przykładowych plików testowych z folderu `usefull_dev_code\example_codes`
 Na przykład dla pliku `knapsack_basic.py`, który stanowił wariant najbardziej zrównoważony pod względem czytelności i struktury, uzyskano wartość AST Density równą **7.61**. 
 
 Dla porównania, kod bardziej zbity (`knapsack_modern.py`) osiągnął wartość **13.89**, natomiast kod rozwlekły i mniej uporządkowany (`knapsack_messy.py`) wartość **6.03**. 
@@ -158,6 +158,35 @@ Implementacja została zrealizowana w języku Python przy użyciu biblioteki `py
 ### Funkcje Przynależności (Membership Functions)
 Do modelowania niepewności wykorzystano funkcje trapezoidalne z określonym *Upper Membership Function (UMF)* i *Lower Membership Function (LMF)*.
 
+**Funkcje przynależności AST Density**
+
+Low
+
+<img src="assets/density_low.PNG" width="500" alt="density_low">
+
+Optimal
+
+<img src="assets/density_optimal.PNG" width="500" alt="density_optimal">
+
+High
+
+<img src="assets/density_high.PNG" width="500" alt="density_high">
+
+**Funkcje przynależności Cyclomatic Complexity**
+
+Low
+
+<img src="assets/cc_low.PNG" width="500" alt="cc_low">
+
+Medium
+
+<img src="assets/cc_medium.PNG" width="500" alt="cc_medium">
+
+High
+
+<img src="assets/cc_high.PNG" width="500" alt="cc_high">
+
+
 ## 4. Baza Reguł i Wnioskowanie (TSK)
 
 Macierz reguł ($3 \times 3$) definiuje funkcję wyjścia (Quality Score) w zależności od kombinacji wejść.
@@ -188,7 +217,31 @@ Projekt zrealizowano w języku **Python 3.x**.
 * Python 3.8+
 * Zainstalowane pakiety z `requirements.txt`
 
+### Uruchamianie aplikacji GUI
+* Uruchom plik `app_gui.py`
+* Podaj mu plik .py metodą Drag and Drop
+* Pojawią się wartości AST Density i CC, a także zmiennej wyjściowej w skali 0 - 100
+
+
+### Uruchamianie sterownika
+* Otwórz kod `app_v2.py`
+* Możesz ręcznie wpisać swoje wartości, bazując na przykładach zaczynających się w linijce 115
+* Uruchom kod
+
 ## 7. Przykłady Działania i Wyniki
+
+Przyklad dzialania GUI
+
+<img src="assets/gui_example.PNG" width="500" alt="Przyklad dzialania GUI">
+
+Przykładowe wyniki kontrolera
+
+<img src="assets/controller_example.PNG" width="500" alt="Przyklad dzialania GUI">
+
+Wykres 3D zmiennej wyjściowej
+
+<img src="assets/3D_plot.PNG" width="500" alt="Przyklad dzialania GUI">
+
 
 ## 8. Wnioski i Możliwy Rozwój
 
