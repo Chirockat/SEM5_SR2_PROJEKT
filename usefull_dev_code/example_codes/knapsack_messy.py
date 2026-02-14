@@ -26,7 +26,7 @@ def knapsack_bruteforce_messy(W, weights, values):
                     answer = v
         else:
             if w > W:
-                temp = temp  # absolutnie nic nie robi
+                temp = temp
 
     if answer < 0:
         return 0

@@ -112,37 +112,22 @@ print("-" * 50)
 print(f"{'TYP KODU':<15} | {'Dens.':<5} | {'CC':<5} | {'OCENA (0-100)':<15}")
 print("-" * 50)
 
-# Scenariusz 1: "Optimal"
-case_optimal = {'density': 7, 'complexity': 0}
-res_optimal = controller.evaluate(case_optimal )
-print(f"{'OPTIMAL':<15} | {case_optimal['density']:<5} | {case_optimal['complexity']:<5} | {res_optimal['quality']:.2f}")
 
-
-# Scenariusz 2: "Knapsack Basic" (Ten zrównoważony)
-case_basic = {'density': 8, 'complexity': 6}
+# Scenariusz 1: "Knapsack Basic" (Ten zrównoważony)
+case_basic = {'density': 7.61, 'complexity': 6}
 res_basic = controller.evaluate(case_basic)
-print(f"{'BASIC (Good)':<15} | {case_basic['density']:<5} | {case_basic['complexity']:<5} | {res_basic['quality']:.2f}")
+print(f"{'BASIC ':<15} | {case_basic['density']:<5} | {case_basic['complexity']:<5} | {res_basic['quality']:.2f}")
 
-# Scenariusz 3: "Knapsack Modern" (Zbyt gęsty)
-case_modern = {'density': 14.0, 'complexity': 7}
+# Scenariusz 2: "Knapsack Modern" (Zbyt gęsty)
+case_modern = {'density': 13.89, 'complexity': 7}
 res_modern = controller.evaluate(case_modern)
-print(f"{'MODERN (Dense)':<15} | {case_modern['density']:<5} | {case_modern['complexity']:<5} | {res_modern['quality']:.2f}")
+print(f"{'MODERN ':<15} | {case_modern['density']:<5} | {case_modern['complexity']:<5} | {res_modern['quality']:.2f}")
 
-# Scenariusz 4: "Knapsack Messy" (Rozwlekły)
+# Scenariusz 3: "Knapsack Messy" (Rozwlekły)
 
-case_messy = {'density': 6, 'complexity': 12}
+case_messy = {'density': 6.03, 'complexity': 12}
 res_messy = controller.evaluate(case_messy)
-print(f"{'MESSY (Spag.)':<15} | {case_messy['density']:<5} | {case_messy['complexity']:<5} | {res_messy['quality']:.2f}")
-
-# Scenariusz 5: "Kiepski kod" (obydwa wysokie)
-case_bad = {'density': 15.0, 'complexity': 15}
-res_bad = controller.evaluate(case_bad)
-print(f"{'BAD CODE':<15} | {case_bad['density']:<5} | {case_bad['complexity']:<5} | {res_bad['quality']:.2f}")
-
-# Scenariusz 6: "Najgorszy" (obydwa z pogranicza)
-case_worst = {'density': 40, 'complexity': 50}
-res_worst = controller.evaluate(case_worst)
-print(f"{'WORST CODE':<15} | {case_worst['density']:<5} | {case_worst['complexity']:<5} | {res_worst['quality']:.2f}")
+print(f"{'MESSY ':<15} | {case_messy['density']:<5} | {case_messy['complexity']:<5} | {res_messy['quality']:.2f}")
 
 
 print("-" * 50)
