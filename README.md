@@ -337,7 +337,7 @@ if __name__ == "__main__":
 <img src="assets/3D_plot.PNG" width="500" alt="Przyklad dzialania GUI">
 
 
-## 9. Wykorzystanie modelów LLM w tworzeniu projektu
+## 8. Wykorzystanie modelów LLM w tworzeniu projektu
 
 Projekt powstał w asyście narzędzi LLM. Głównie był wykorzystywany model Gemini Pro 17. Pomógł on zarówno w kwesti generowania konkretnego kodu, jak i w warstwie kreatywnej. Jego praca obejmuje w szczególności: 
 
