@@ -6,15 +6,16 @@ Dokumentacja techniczna projektu wykorzystującego logikę rozmytą typu 2 do au
 
 ## Spis Treści
 1. [Wstęp i Cel Projektu](#1-wstęp-i-cel-projektu)
-2. [Metryki Wejściowe](#2-metryki-wejściowe)
-3. [Projekt Systemu Rozmytego (Fuzzy Logic Design)](#3-projekt-systemu-rozmytego-fuzzy-logic-design)
+2. [Struktura Projektu](#2-struktura-projektu)
+3. [Metryki Wejściowe](#3-metryki-wejściowe)
+4. [Projekt Systemu Rozmytego (Fuzzy Logic Design)](#4-projekt-systemu-rozmytego-fuzzy-logic-design)
     - [Zmienne Lingwistyczne](#zmienne-lingwistyczne)
     - [Funkcje Przynależności (Membership Functions)](#funkcje-przynależności-membership-functions)
-4. [Baza Reguł i Wnioskowanie](#4-baza-reguł-i-wnioskowanie-tsk)
-5. [Implementacja i Technologie](#5-implementacja-i-technologie)
-6. [Instrukcja Uruchomienia](#6-instrukcja-uruchomienia)
-7. [Przykłady Działania i Wyniki](#7-przykłady-działania-i-wyniki)
-8. [Wykorzystanie modelów LLM w tworzeniu projektu](#8-wykorzystanie-modelów-llm-w-tworzeniu-projektu)
+5. [Baza Reguł i Wnioskowanie](#5-baza-reguł-i-wnioskowanie-tsk)
+6. [Implementacja i Technologie](#6-implementacja-i-technologie)
+7. [Instrukcja Uruchomienia](#7-instrukcja-uruchomienia)
+8. [Przykłady Działania i Wyniki](#8-przykłady-działania-i-wyniki)
+9. [Wykorzystanie modelów LLM w tworzeniu projektu](#9-wykorzystanie-modelów-llm-w-tworzeniu-projektu)
 ---
 
 ## 1. Wstęp i Cel Projektu
@@ -28,11 +29,22 @@ Skupiliśmy się na języku Python ze względu na jego popularność i ze wzglę
 Pomysł na projekt powstał z następującej refleksji -  Jest wiele bibliotek do oceny kodu: **Pylint, Mypy, Bandit;** ale bardziej skupiają się one na zgodności ze standardami kodu, jego stabilności lub bezpieczeństwie.
 Z kolei okazało się że ciężko znaleźć coś co opisywało by bardziej subiektywną kategorię - czytelność kodu. A okazuje się że, po pierwsze, dobrze pasuje ona na natury Systemów Rozmytych, które to są - jak sama nazwa mówi - rozmyte, nieostre; A po drugie, pełni ważną rolę dla nas osobiście jako studentów uczących się programować.
 
-## 2. Metryki Wejściowe
+## 2. Struktura Projektu
+
+Projekt został podzielony na kilka kluczowych modułów i folderów, aby zapewnić przejrzystość i łatwość w nawigacji:
+
+*   **`app_gui.py`**: Główny plik interfejsu graficznego aplikacji. To tutaj uruchamia się właściwy produkt, z którym interakcję przeprowadza użytkownik końcowy (drag & drop plików).
+*   **`app_logic.py`**: Plik zawierający logikę biznesową aplikacji, w tym obliczanie metryk i obsługę systemu rozmytego, wykorzystywana przez GUI.
+*   **`usefull_dev_code/app_v2.py`**: Obecna wersja kontrolera w osobnym pliku (wersja deweloperska/prototypowa). Służy do testowania logiki bez pełnego GUI, wizualizuje wykresy zmiennych wejściowych i wyjściowych oraz pozwala na ręczne wprowadzanie danych.
+*   **`usefull_dev_code/example_codes`**: Folder zawierający przykładowe kody źródłowe (np. `knapsack_basic.py`, `knapsack_modern.py`, `knapsack_messy.py`). Można na nich przetestować działanie programu i zobaczyć różnice w ocenie jakości.
+*   **`usefull_dev_code/pyit2fls_fix`**: Folder zawierający poprawki do biblioteki `pyit2fls`. Został stworzony w celu naprawy błędów w oryginalnej bibliotece, które uniemożliwiały poprawne działanie niektórych funkcji (np. wizualizacji).
+*   **`llm_usage`**: Folder dokumentujący wykorzystanie dużych modeli językowych (LLM) w projekcie. Zawiera zapisy rozmów (skrypty) z modelami takimi jak Gemini czy ChatGPT, które pomagały w procesie twórczym i implementacyjnym.
+
+## 3. Metryki Wejściowe
 
 System podejmuje decyzje na podstawie dwóch kluczowych wskaźników wyekstrahowanych z kodu:
 
-### 2.1. Złożoność Cyklomatyczna (Cyclomatic Complexity - CC)
+### 3.1. Złożoność Cyklomatyczna (Cyclomatic Complexity - CC)
 
 Złożoność Cyklomatyczna jest liczona dzięki bibliotece radon a konkretnie z modułu radon.compelxity i wbudowanej w niej funkcji `cc_visit`. 
 Polega na zliczeniu wszystkich
@@ -67,7 +79,7 @@ Zmienna cyklometryczna swoje uniwersum posiada w przedziale `[0,50]` gdzie:
 **Skala pomiarowa** jest ilorazowa i absolutna a wartości są liczbami naturalnymi. 
 Istnieje też 0 które wskazuje że np. sprawdzamy obszar w którym nie deklarujemy żadnej funkcji ani elementów testowanych. 
 
-### 2.2. Gęstość Węzłów AST (AST Node Density)
+### 3.2. Gęstość Węzłów AST (AST Node Density)
 
 
 Zmienna wejściowa **AST Density** opisuje, jak bardzo „zagęszczony” jest kod źródłowy pod względem swojej struktury składniowej.
@@ -128,7 +140,7 @@ Metryka AST Density została zaprojektowana częściowo przy wsparciu modeli ję
 Jej sposób obliczania oraz przykładowe wyniki działania można prześledzić w pliku `ast_test.py`,
 gdzie zaprezentowano wartości tej metryki dla różnych fragmentów kodu źródłowego.
 
-## 3. Projekt Systemu Rozmytego (Fuzzy Logic Design)
+## 4. Projekt Systemu Rozmytego (Fuzzy Logic Design)
 
 System oparty jest na **Interval Type-2 Fuzzy Logic System (IT2FLS)** w modelu **Takagi-Sugeno-Kang (TSK)**. Wybór tego rozwiązania podyktowany był koniecznością modelowania niepewności, która jest nierozerwalnie związana z subiektywną oceną jakości kodu.
 
@@ -186,7 +198,7 @@ High
 <img src="assets/cc_high.PNG" width="500" alt="cc_high">
 
 
-## 4. Baza Reguł i Wnioskowanie (TSK)
+## 5. Baza Reguł i Wnioskowanie (TSK)
 
 Macierz reguł ($3 \times 3$) definiuje funkcję wyjścia (Quality Score) w zależności od kombinacji wejść.
 
@@ -200,7 +212,7 @@ Macierz reguł ($3 \times 3$) definiuje funkcję wyjścia (Quality Score) w zale
 W modelu TSK wyjście nie jest zbiorem rozmytym, lecz funkcją liniową postaci:
 $$f(x) = C + w_1 \cdot Density + w_2 \cdot Complexity$$
 
-## 5. Implementacja i Technologie
+## 6. Implementacja i Technologie
 
 Projekt zrealizowano w języku **Python 3.x**.
 
@@ -210,7 +222,7 @@ Projekt zrealizowano w języku **Python 3.x**.
 * `ast` (Standard Library): Analiza drzewa składniowego do obliczenia gęstości.
 * `numpy` & `matplotlib`: Obliczenia numeryczne i wizualizacja powierzchni sterowania 3D.
 
-## 6. Instrukcja Uruchomienia
+## 7. Instrukcja Uruchomienia
 
 ### Wymagania
 * Python 3.8+
@@ -227,7 +239,7 @@ Projekt zrealizowano w języku **Python 3.x**.
 * Możesz ręcznie wpisać swoje wartości, bazując na przykładach zaczynających się w linijce 115
 * Uruchom kod
 
-## 7. Przykłady Działania i Wyniki
+## 8. Przykłady Działania i Wyniki
 
 ### Przyklad dzialania GUI
 
@@ -337,7 +349,7 @@ if __name__ == "__main__":
 <img src="assets/3D_plot.PNG" width="500" alt="Przyklad dzialania GUI">
 
 
-## 8. Wykorzystanie modelów LLM w tworzeniu projektu
+## 9. Wykorzystanie modelów LLM w tworzeniu projektu
 
 Projekt powstał w asyście narzędzi LLM. Głównie był wykorzystywany model Gemini Pro 17. Pomógł on zarówno w kwesti generowania konkretnego kodu, jak i w warstwie kreatywnej. Jego praca obejmuje w szczególności: 
 
