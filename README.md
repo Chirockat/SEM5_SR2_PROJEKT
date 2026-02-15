@@ -14,8 +14,7 @@ Dokumentacja techniczna projektu wykorzystującego logikę rozmytą typu 2 do au
 5. [Implementacja i Technologie](#5-implementacja-i-technologie)
 6. [Instrukcja Uruchomienia](#6-instrukcja-uruchomienia)
 7. [Przykłady Działania i Wyniki](#7-przykłady-działania-i-wyniki)
-8. [Wnioski i Możliwy Rozwój](#8-wnioski-i-możliwy-rozwój)
-9. [Wykorzystanie modelów LLM w tworzeniu projektu](#9-wykorzystanie-modelów-llm-w-tworzeniu-projektu)
+8. [Wykorzystanie modelów LLM w tworzeniu projektu](#8-wykorzystanie-modelów-llm-w-tworzeniu-projektu)
 ---
 
 ## 1. Wstęp i Cel Projektu
@@ -230,22 +229,115 @@ Projekt zrealizowano w języku **Python 3.x**.
 
 ## 7. Przykłady Działania i Wyniki
 
-Przyklad dzialania GUI
+### Przyklad dzialania GUI
 
 <img src="assets/gui_example.PNG" width="500" alt="Przyklad dzialania GUI">
 
-Przykładowe wyniki kontrolera
+### Przykładowe wyniki kontrolera - problem plecakowy, 3 warianty
 
 <img src="assets/controller_example.PNG" width="500" alt="Przyklad dzialania GUI">
 
-Wykres 3D zmiennej wyjściowej
+#### Basic - kod zwrównoważony
+
+```python
+def knapsack_bruteforce_simple(W, weights, values):
+    n = len(weights)
+    best_value = 0
+
+    for mask in range(1 << n):
+        total_weight = 0
+        total_value = 0
+
+        for i in range(n):
+            if mask & (1 << i):
+                total_weight += weights[i]
+                total_value += values[i]
+
+        if total_weight <= W and total_value > best_value:
+            best_value = total_value
+
+    return best_value
+
+
+if __name__ == "__main__":
+    W = 50
+    wt = [10, 20, 30]
+    val = [60, 100, 120]
+    print(knapsack_bruteforce_simple(W, wt, val))
+```
+
+
+#### Modern - kod gęsty, o wysokim AST Density
+
+```python
+from itertools import product
+
+def knapsack_bruteforce_modern(W, weights, values):
+    n = len(weights)
+    return max(
+        sum(v for i, v in enumerate(values) if mask[i])
+        for mask in product([0, 1], repeat=n)
+        if sum(w for i, w in enumerate(weights) if mask[i]) <= W
+    )
+
+if __name__ == "__main__":
+    W = 50
+    wt = [10, 20, 30]
+    val = [60, 100, 120]
+    print(knapsack_bruteforce_modern(W, wt, val))
+```
+
+#### Messy - kod zagmatwany, o wysokim Cyclomatic Complexity
+
+```python
+def knapsack_bruteforce_messy(W, weights, values):
+    n = len(weights)
+    answer = -1
+    temp = 0
+
+    for mask in range(0, 2 ** n):
+        w = 0
+        v = 0
+        i = 0
+
+        while i < n:
+            if ((mask >> i) & 1) == 1:
+                if True:
+                    w = w + weights[i]
+                    v = v + values[i]
+                else:
+                    pass
+            else:
+                if False:
+                    w += 0
+            i += 1
+
+        if w <= W:
+            if v >= answer:
+                if v > temp or temp == temp:
+                    answer = v
+        else:
+            if w > W:
+                temp = temp
+
+    if answer < 0:
+        return 0
+    return answer
+
+if __name__ == "__main__":
+    W = 50
+    wt = [10, 20, 30]
+    val = [60, 100, 120]
+    print(knapsack_bruteforce_messy(W, wt, val))
+```
+
+
+### Wykres 3D zmiennej wyjściowej
 
 <img src="assets/3D_plot.PNG" width="500" alt="Przyklad dzialania GUI">
 
 
-## 8. Wnioski i Możliwy Rozwój
-
-## 9. Wykorzystanie modelów LLM w tworzeniu projektu
+## 8. Wykorzystanie modelów LLM w tworzeniu projektu
 
 Projekt powstał w asyście narzędzi LLM. Głównie był wykorzystywany model Gemini Pro 17. Pomógł on zarówno w kwesti generowania konkretnego kodu, jak i w warstwie kreatywnej. Jego praca obejmuje w szczególności: 
 
