@@ -31,8 +31,6 @@ Z kolei okazało się że ciężko znaleźć coś co opisywało by bardziej subi
 
 ## 2. Struktura Projektu
 
-Projekt został podzielony na kilka kluczowych modułów i folderów, aby zapewnić przejrzystość i łatwość w nawigacji:
-
 *   **`app_gui.py`**: Główny plik interfejsu graficznego aplikacji. To tutaj uruchamia się właściwy produkt, z którym interakcję przeprowadza użytkownik końcowy (drag & drop plików).
 *   **`app_logic.py`**: Plik zawierający logikę biznesową aplikacji, w tym obliczanie metryk i obsługę systemu rozmytego, wykorzystywana przez GUI.
 *   **`usefull_dev_code/app_v2.py`**: Obecna wersja kontrolera w osobnym pliku (wersja deweloperska/prototypowa). Służy do testowania logiki bez pełnego GUI, wizualizuje wykresy zmiennych wejściowych i wyjściowych oraz pozwala na ręczne wprowadzanie danych.
