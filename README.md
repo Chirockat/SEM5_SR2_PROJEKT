@@ -227,7 +227,7 @@ Projekt zrealizowano w języku **Python 3.8**.
 ## 7. Instrukcja Uruchomienia
 
 ### Wersja .exe
-* Pobierz i uruchom plik `app_gui.exe`
+* Pobierz i uruchom plik `app_gui.exe` z zakładki **Releases**
 * Podaj mu plik .py metodą Drag and Drop
 * Pojawią się wartości AST Density i CC, a także zmiennej wyjściowej w skali 0 - 100
 
