@@ -212,13 +212,15 @@ $$f(x) = C + w_1 \cdot Density + w_2 \cdot Complexity$$
 
 ## 6. Implementacja i Technologie
 
-Projekt zrealizowano w języku **Python 3.x**.
+Projekt zrealizowano w języku **Python 3.8**.
 
 **Kluczowe biblioteki:**
 * `pyit2fls`: Silnik logiki rozmytej typu 2.
 * `radon`: Ekstrakcja metryk surowych i CC.
 * `ast` (Standard Library): Analiza drzewa składniowego do obliczenia gęstości.
 * `numpy` & `matplotlib`: Obliczenia numeryczne i wizualizacja powierzchni sterowania 3D.
+* `tkinterdnd2`: GUI aplikacji.
+
 
 ## 7. Instrukcja Uruchomienia
 
