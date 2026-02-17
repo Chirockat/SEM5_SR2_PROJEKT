@@ -226,17 +226,24 @@ Projekt zrealizowano w języku **Python 3.8**.
 
 ## 7. Instrukcja Uruchomienia
 
-### Wymagania
-* Python 3.8+
-* Zainstalowane pakiety z `requirements.txt`
-
-### Uruchamianie aplikacji GUI
-* Uruchom plik `app_gui.py`
+### Wersja .exe
+* Pobierz i uruchom plik `app_gui.exe`
 * Podaj mu plik .py metodą Drag and Drop
 * Pojawią się wartości AST Density i CC, a także zmiennej wyjściowej w skali 0 - 100
 
 
-### Uruchamianie sterownika
+### Wersja w środowisku python
+
+#### Wymagania
+* Python 3.8+
+* Zainstalowane pakiety z `requirements.txt`
+
+#### Uruchamianie aplikacji GUI
+* Uruchom plik `app_gui.py`
+* Podaj mu plik .py metodą Drag and Drop
+* Pojawią się wartości AST Density i CC, a także zmiennej wyjściowej w skali 0 - 100
+
+#### Uruchamianie sterownika
 * Otwórz kod `app_v2.py`
 * Możesz ręcznie wpisać swoje wartości, bazując na przykładach zaczynających się w linijce 115
 * Uruchom kod
